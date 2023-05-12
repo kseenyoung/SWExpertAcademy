@@ -1,13 +1,25 @@
-numbers = [[] for _ in range(10000)]
-n = 1
-for row in range(10000):
-    for column in range(0, row+1):
-        numbers[row].append(n)
-        n += 1
-# print(numbers)
+def find(target):
+    start = 1
 
-for test in range(1, int(input())+1):
+    for i in range(1, target+1):
+        if start <= target <= start+i:
+            y = i
+            x = 1
+            while target != start:
+                start += 1
+                y -= 1
+                x += 1
+            return x, y
+        start += i
+
+
+for test in range(1, int(input())+1):  # (973/1000)
     p, q = list(map(int, input().split()))
+    result = 0
 
-    print(numbers[q-1][p-1])
+    newx, newy = zip(find(p), find(q))
+    newx, newy = sum(newx), sum(newy)
+    for i in range(1, newx+newy-1):
+        result += i
+    print("#{} {}".format(test, result+newx))
 
